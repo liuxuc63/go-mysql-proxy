@@ -8,12 +8,14 @@ import (
 )
 
 func TestQuery(t *testing.T) {
-	db, err := sql.Open("mysql", "dev:123654@tcp(127.0.0.1:9036)/demo")
+	db, err := sql.Open("mysql", "dev:123654@tcp(127.0.0.1:9036)/")
 	//db, err := sql.Open("mysql", "dev:123654@tcp(127.0.0.1:3336)/demo")
 	if err != nil {
 		panic(err.Error()) // Just for example purpose. You should use proper error handling instead of panic
 	}
 	defer db.Close()
+
+	db.Exec("use demo")
 
 	// Prepare statement for reading data
 	rows, err := db.Query("SELECT * FROM category WHERE category_id > ?", 0)
